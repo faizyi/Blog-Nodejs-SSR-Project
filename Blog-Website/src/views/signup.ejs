@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>Signup</title>
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+    <div class="d-flex justify-content-center align-items-center mt-10">
+        <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+            <h2 class="text-center mb-4">Create an Account</h2>
+            <form action="/user/signup" method="post">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" name="fullName" class="form-control" id="fullName" 
+                placeholder="Enter your full name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control"
+                id="email" placeholder="Enter your email" required>
+                <div class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" 
+                id="password" placeholder="Create a password" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </form>
+            <div class="text-center mt-3">
+              <p>Already have an account? <a href="/user/signin">Log in</a></p>
+            </div>
+        </div>
+    </div>
+      
+    <%- include("./partials/script") %> 
+</body>
+</html>
