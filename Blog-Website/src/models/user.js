@@ -1,5 +1,6 @@
 import {createHmac, randomBytes} from "crypto"
 import { Schema, model } from "mongoose";
+import { createToken } from "../utils/jwt.js";
 const userSchema = new Schema({
     fullName: {
         type: String,
@@ -47,18 +48,15 @@ userSchema.pre("save", function(next){
 
 })
 
-userSchema.static("matchPassword", async function(email, password){
-    try {
+userSchema.static("matchPasswordAndGenerateToken", async function(email, password){
         const user = await this.findOne({email});
-        if(!user) console.log("Invalid Something")
+        if(!user) throw new Error("Invalid Something")
         const salt = user.salt;
         const hashPassword = user.password;
         const userPassword = createHmac("sha256", salt).update(password).digest("hex");
-        if(hashPassword !== userPassword) console.log("Invalid Something")
-        return {...user._doc, password: undefined, salt: undefined}
-    } catch (error) {
-        console.log(error)
-    }
+        if(hashPassword !== userPassword) throw new Error("Invalid Something");
+        const token = createToken(user)
+        return token;
 })
 
 const User = model("users", userSchema);
