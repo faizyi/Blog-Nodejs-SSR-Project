@@ -6,8 +6,36 @@
 </head>
 <body>
     <%- include("./partials/navbar") %>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary fw-bold mb-4">All Blogs</h1>
+        <% if (locals.allBlogs) { %>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <% allBlogs.forEach(blogs => { %>
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <!-- Blog Image -->
+                    <img src="<%= blogs.coverImageURL %>" class="card-img-top rounded-top" alt="<%= blogs.title %>" style="height: 200px; object-fit: cover;">
+                    
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <h5 class="card-title font-bold text-truncate"><%= blogs.title %></h5>
+                        <p class="card-text text-muted text-truncate"><%= blogs.description %></p>
+                    </div>
 
-
+                    <!-- View More Button -->
+                    <div class="card-footer text-center bg-white">
+                        <a href="/blog/<%= blogs._id %>" class="btn btn-primary w-100">View More</a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        <% } else { %>
+        <div class="text-center mt-5">
+            <p class="text-muted">No Blogs Available</p>
+        </div>
+        <% } %>
+    </div>
     <%- include("./partials/script") %> 
 </body>
 </html>

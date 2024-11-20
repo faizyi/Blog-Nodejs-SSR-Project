@@ -8,6 +8,7 @@ import userRoutes from "./src/routes/user.js"
 import blogRoutes from "./src/routes/blog.js"
 import connectToDB from "./src/connection/index.js";
 import { checkForAuthCookie } from "./src/middlewares/index.js";
+import Blog from "./src/models/blog.js";
 
 const app = express();
 const PORT = 6001;
@@ -25,9 +26,12 @@ app.use(checkForAuthCookie)
 
 connectToDB();
 
-app.get("/", (req, res)=>{
+app.get("/", async (req, res)=>{
+    const Blogs = await Blog.find({});
+    console.log(req.user)
     res.render('home',{
-        user : req.user
+        user : req.user,
+        allBlogs: Blogs
     })
 })
 app.use("/user", userRoutes)
