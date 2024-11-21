@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Leave a Comment</h2>
+        <!-- Comment Form -->
+        <form action="/blog/comment/<%= blog._id %>" method="post" class="space-y-4">
+            <!-- Comment Textarea -->
+            <div class="form-group">
+                <label for="comment" class="form-label block text-lg text-gray-700 font-medium mb-2">
+                    Your Comment
+                </label>
+                <textarea id="comment" name="content" rows="4"
+                    class="capitalize form-control border border-gray-300 p-3 rounded-lg w-full focus:ring-2 
+                    focus:ring-blue-500 focus:outline-none"
+                    placeholder="Write your comment here..." required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-right">
+                <button type="submit" 
+                    class="btn btn-primary bg-blue-500 text-white px-6 py-2 rounded-lg 
+                    shadow-md hover:bg-blue-600 transition-all duration-200">
+                    Post Comment
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

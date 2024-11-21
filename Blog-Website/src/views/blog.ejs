@@ -6,7 +6,7 @@
 </head>
 <body>
     <%- include("./partials/navbar") %>
-    <div class="container mt-5">
+    <div class="container mt-20">
         <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
             <!-- Blog Title -->
             <h1 class="text-center text-3xl md:text-4xl font-bold text-blue-600 mb-4">
@@ -28,11 +28,30 @@
 
             <!-- Author and Date -->
             <div class="mt-6 flex justify-between items-center text-sm text-gray-500 border-t pt-4">
-                <span>Written by <strong><%= blog.name %></strong></span>
-                <span><%= new Date(blog.createdAt).toLocaleDateString() %></span>
-            </div>
+                <!-- Author Info -->
+                <div class="flex items-center space-x-3">
+                    <!-- Author Image -->
+                    <img src="<%= blog.createdBy.profileImageURL %>" 
+                         alt="<%= blog.createdBy.fullName %>" 
+                         class="w-10 h-10 rounded-full border border-gray-300 shadow-sm">
+                    <!-- Author Name -->
+                    <span class="text-base font-medium text-gray-700">
+                        Written by <strong><%= blog.createdBy.fullName %></strong>
+                    </span>
+                </div>
+                <!-- Published Date -->
+                <span class="text-sm">
+                    Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', {
+                        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                    }) %>
+                </span>
+                </div>
         </div>
     </div>
+    <% if (locals.user) { %>
+        <%- include("./addComment") %>
+    <% } %>
+    <%- include("./comments") %>
     <%- include("./partials/script") %> 
 </body>
 </html>

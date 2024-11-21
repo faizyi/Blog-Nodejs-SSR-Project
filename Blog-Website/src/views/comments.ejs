@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Comments (<%= comments.length %>)</h2>
+        
+        <% if (comments && comments.length > 0) { %>
+            <div class="space-y-4">
+                <% comments.forEach(comment => { %>
+                    <!-- Comment Card -->
+                    <div class="bg-white shadow-md rounded-lg p-4 flex items-start space-x-4">
+                        <!-- Profile Image -->
+                        <img src="<%= comment.createdBy.profileImageURL %>" 
+                        alt="<%= comment.createdBy.fullName %>"
+                            class="w-12 h-12 rounded-full object-cover">
+
+                        <!-- Comment Content -->
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-lg font-semibold text-gray-800">
+                                    <%= comment.createdBy.fullName %>
+                                </h4>
+                                <span class="text-sm text-gray-500">
+                                    <%= new Date(comment.createdAt).toLocaleDateString() %>
+                                </span>
+                            </div>
+                            <p class="text-gray-700 mt-2">
+                                <%= comment.content %>
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <!-- No Comments Message -->
+            <div class="mb-8 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg">
+                <p>No comments yet. Be the first to share your thoughts!</p>
+            </div>
+        <% } %>
+    </div>
+</div>

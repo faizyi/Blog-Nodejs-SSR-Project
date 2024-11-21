@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import Blog from "../models/blog.js";
+import Comment from "../models/comment.js";
 const router = Router();
 
 // image
@@ -30,18 +31,32 @@ router.post("/", upload.single("coverImageURL"), async (req, res)=>{
     const blog = await Blog.create({
         title,
         description,
-        coverImageURL: `/uploads/${req.file.filename}`
+        coverImageURL: `/uploads/${req.file.filename}`,
+        createdBy: req.user.id
     })
     return res.redirect(`/blog/${blog._id}`)
 })
 
 router.get("/blog/:id", async(req, res)=>{
-    const blog = await Blog.findById(req.params.id)
-    console.log(blog)
+    const blog = await Blog.findById(req.params.id).populate("createdBy")
+    const comments = await Comment.find({blogId:req.params.id }).populate("createdBy")
     return res.render("blog",{
         user: req.user,
-        blog
+        blog,
+        comments
     })
 })
+
+router.post("/blog/comment/:id", async(req, res)=>{
+    const {content} = req.body;
+    await Comment.create({
+        content,
+        blogId: req.params.id,
+        createdBy: req.user.id
+    })
+    return res.redirect(`/blog/${req.params.id}`)
+})
+
+
 
 export default router;
