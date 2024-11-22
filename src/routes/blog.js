@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 import Blog from "../models/blog.js";
 import Comment from "../models/comment.js";
+import { checkAuthorization } from "../middlewares/index.js";
 const router = Router();
 
 // image
@@ -20,13 +21,13 @@ const upload = multer({storage: storage});
 
 
 
-router.get("/addblog", (req, res)=>{
+router.get("/addblog", checkAuthorization, (req, res)=>{
     res.render("addBlog",{
         user: req.user
     })
 })
 
-router.post("/", upload.single("coverImageURL"), async (req, res)=>{
+router.post("/", checkAuthorization, upload.single("coverImageURL"), async (req, res)=>{
     const {title, description,} = req.body;
     const blog = await Blog.create({
         title,

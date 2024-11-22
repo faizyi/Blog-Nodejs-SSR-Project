@@ -14,3 +14,13 @@ export const checkForAuthCookie = (req, res, next)=>{
         return res.status(500).send("Internal Server Error");
     }
 }
+
+export const checkAuthorization = (req, res, next)=>{
+    try {
+        if(!req.user) return res.redirect("/user/signin");
+        return next()
+    } catch (error) {
+        console.error("Authentication middleware error:", error.message);
+        return res.status(500).send("Internal Server Error");
+    }
+}
