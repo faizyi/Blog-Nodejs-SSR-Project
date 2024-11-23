@@ -1,7 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser"
 import path from "path"
-import multer from "multer";
 import { fileURLToPath } from "url";
 import { configs } from "./src/config/index.js";
 import userRoutes from "./src/routes/user.js"

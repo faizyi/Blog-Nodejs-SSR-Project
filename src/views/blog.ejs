@@ -49,7 +49,9 @@
         </div>
     </div>
     <% if (locals.user) { %>
-        <%- include("./addComment") %>
+        <% if (blog.createdBy._id != locals.user.id) { %>
+            <%- include("./addComment") %>
+        <% } %>
     <% } %>
     <%- include("./comments") %>
     <%- include("./partials/script") %> 
