@@ -1,7 +1,9 @@
 <div class="container mt-5">
     <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Comments (<%= comments.length %>)</h2>
-        
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <%= comments.length > 1 ? "Comments" : "Comment" %>
+                (<%= comments.length %>)
+            </h2>
         <% if (comments && comments.length > 0) { %>
             <div class="space-y-4">
                 <% comments.forEach(comment => { %>
